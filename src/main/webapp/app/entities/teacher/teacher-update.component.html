@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-teacher-heading">Create or edit a Teacher</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!teacher.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="teacher.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_teacherName">Teacher Name</label>
+                    <input type="text" class="form-control" name="teacherName" id="field_teacherName"
+                        [(ngModel)]="teacher.teacherName" required pattern="[A-Za-z ]+"/>
+                    <div [hidden]="!(editForm.controls.teacherName?.dirty && editForm.controls.teacherName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.teacherName?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.teacherName?.errors?.pattern">
+                            This field should follow pattern for "Teacher Name".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mobileNumber">Mobile Number</label>
+                    <input type="text" class="form-control" name="mobileNumber" id="field_mobileNumber"
+                        [(ngModel)]="teacher.mobileNumber" required maxlength="12" pattern="[0-9]+"/>
+                    <div [hidden]="!(editForm.controls.mobileNumber?.dirty && editForm.controls.mobileNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mobileNumber?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mobileNumber?.errors?.maxlength">
+                        This field cannot be longer than 12 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.mobileNumber?.errors?.pattern">
+                            This field should follow pattern for "Mobile Number".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateOfBirth">Date Of Birth</label>
+                    <input type="text" class="form-control" name="dateOfBirth" id="field_dateOfBirth"
+                        [(ngModel)]="teacher.dateOfBirth" required/>
+                    <div [hidden]="!(editForm.controls.dateOfBirth?.dirty && editForm.controls.dateOfBirth?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateOfBirth?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                        [(ngModel)]="teacher.email" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_password">Password</label>
+                    <input type="text" class="form-control" name="password" id="field_password"
+                        [(ngModel)]="teacher.password" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_desc">Desc</label>
+                    <input type="text" class="form-control" name="desc" id="field_desc"
+                        [(ngModel)]="teacher.desc" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

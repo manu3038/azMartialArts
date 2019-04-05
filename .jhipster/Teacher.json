@@ -1,0 +1,62 @@
+{
+    "name": "Teacher",
+    "fields": [
+        {
+            "fieldName": "teacherName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "[A-Za-z ]+"
+        },
+        {
+            "fieldName": "mobileNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMaxlength": 12,
+            "fieldValidateRulesPattern": "[0-9]+"
+        },
+        {
+            "fieldName": "dateOfBirth",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "desc",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "student",
+            "otherEntityName": "student",
+            "otherEntityRelationshipName": "teacher"
+        }
+    ],
+    "changelogDate": "20190401102158",
+    "javadoc": "The Teacher entity.\n@author Manohar",
+    "entityTableName": "teacher",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

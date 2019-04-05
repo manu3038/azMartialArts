@@ -45,10 +45,6 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
-    data:
-        elasticsearch:
-            cluster-name:
-            cluster-nodes: localhost:9300
     liquibase:
         contexts: prod
     mail:
@@ -103,7 +99,7 @@ jhipster:
     security:
         remember-me:
             # security key (this key should be unique for your application, and kept secret)
-            key: 1a30e7583a70540d008286eda0f1854a990b6c54
+            key: 38d0444422847991c2739823a8b575c3cc2ac532
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: azmartialarts@localhost
         base-url: http://my-server-url-to-change # Modify according to your server's URL

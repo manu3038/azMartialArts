@@ -1,0 +1,136 @@
+<div>
+    <h2 id="page-heading">
+        <span>Students</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-student" [routerLink]="['/student/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Student
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <h3>Search</h3>
+    <form [formGroup]="searchFilterForm" (ngSubmit)="onSearchSubmit($event)" class="row">
+        <div class="col-md-3 form-group">
+         <label for="locationSearch" class="form-control-label">Location</label>
+         <select name="field_locationSearch" formControlName="locationSearch" id="locationSearch" class="form-control form-control-sm">
+            <option [ngValue]="null">--Select--</option>
+            <option [ngValue]="locationOption.id" *ngFor="let locationOption of locations">{{locationOption.locationName}}</option>
+         </select>
+        </div> 
+         <div class="col-md-3 form-group">
+         <label for="beltSearch" class="form-control-label">Belt</label>
+         <select name="field_beltSearch" id="beltSearch" formControlName="beltSearch" class="form-control form-control-sm">
+                <option [ngValue]="null">--Select--</option>
+                <option [ngValue]="beltLevelOption.id" *ngFor="let beltLevelOption of beltlevels">{{beltLevelOption.level}}</option>
+         </select>
+        </div>
+        <div class="float-right form-group">
+            <button id="btn_search" class="btn btn-primary" type="submit">
+                    <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
+            </button>
+            <button id="btn_reset" class="btn btn-secondary" (click)="resetSearchFilter()">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                   <span>Reset</span> 
+                </button>
+        </div>
+        
+    </form>
+    <div class="table-responsive" *ngIf="students">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="studentName"><span>Student Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateOfBirth"><span>Date Of Birth</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="studentmobileNumber"><span>Studentmobile Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateOfJoining"><span>Date Of Joining</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="aadharCardNumber"><span>Aadhar Card Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="parentName"><span>Parent Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="parentmobileNumber"><span>Parentmobile Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="password"><span>Password</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="totalFees"><span>Total Fees</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="paidFees"><span>Paid Fees</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dueFees"><span>Due Fees</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="image"><span>Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="studentemail"><span>Studentemail</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="parentemail"><span>Parentemail</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="teacher.teacherName"><span>Teacher</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="beltLevel.level"><span>Belt Level</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="performance.rating"><span>Performance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="location.locationName"><span>Location</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let student of students ;trackBy: trackId">
+                <td><a [routerLink]="['/student', student.id, 'view' ]">{{student.id}}</a></td>
+                <td>{{student.studentName}}</td>
+                <td>{{student.dateOfBirth}}</td>
+                <td>{{student.studentmobileNumber}}</td>
+                <td>{{student.dateOfJoining}}</td>
+                <td>{{student.aadharCardNumber}}</td>
+                <td>{{student.parentName}}</td>
+                <td>{{student.parentmobileNumber}}</td>
+                <td>{{student.password}}</td>
+                <td>{{student.totalFees}}</td>
+                <td>{{student.paidFees}}</td>
+                <td>{{student.dueFees}}</td>
+                <td>
+                    <a *ngIf="student.image" (click)="openFile(student.imageContentType, student.image)">
+                        <img [src]="'data:' + student.imageContentType + ';base64,' + student.image" style="max-height: 100px;" alt="student image"/>
+                    </a>
+                    <!-- <span *ngIf="student.image">{{student.imageContentType}}, {{byteSize(student.image)}}</span> -->
+                </td>
+                <td>{{student.studentemail}}</td>
+                <td>{{student.parentemail}}</td>
+                <td>
+                    <div *ngIf="student.teacher">
+                        <a [routerLink]="['../teacher', student.teacher?.id, 'view' ]" >{{student.teacher?.teacherName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="student.beltLevel">
+                        <a [routerLink]="['../belt-level', student.beltLevel?.id, 'view' ]" >{{student.beltLevel?.level}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="student.performance">
+                        <a [routerLink]="['../performance', student.performance?.id, 'view' ]" >{{student.performance?.rating}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="student.location">
+                        <a [routerLink]="['../location', student.location?.id, 'view' ]" >{{student.location?.locationName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/student', student.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/student', student.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'student/'+ student.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

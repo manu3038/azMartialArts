@@ -1,0 +1,73 @@
+DEFAULT_MAX_LENGTH = 12
+
+/**
+ * The Student entity.
+ * @author Manohar
+ */
+entity Student {
+studentName String required pattern(/[A-Za-z ]+/)
+dateOfBirth String required
+studentmobileNumber String maxlength(DEFAULT_MAX_LENGTH) pattern(/[0-9]+/)
+dateOfJoining String required
+aadharCardNumber String required maxlength(DEFAULT_MAX_LENGTH) pattern(/[0-9]+/)
+parentName String required pattern(/[A-Za-z ]+/)
+parentmobileNumber String required maxlength(DEFAULT_MAX_LENGTH) pattern(/[0-9]+/)
+password String
+totalFees Double
+paidFees Double
+dueFees Double
+image ImageBlob
+studentemail String
+parentemail String
+}
+
+/**
+ * The Performance entity.
+ * @author Manohar
+ */
+entity Performance{
+    rating String required pattern(/[0-9]+/) maxlength(2)
+}
+
+/**
+ * The BeltLevel entity.
+ * @author Manohar
+ */
+entity BeltLevel {
+    level String required pattern(/[A-Za-z ]+/)
+}
+
+/**
+ * The Teacher entity.
+ * @author Manohar
+ */
+entity Teacher {
+    teacherName  String required pattern(/[A-Za-z ]+/)
+    mobileNumber String required maxlength(DEFAULT_MAX_LENGTH) pattern(/[0-9]+/)
+    dateOfBirth String required
+    email String 
+    password String 
+    desc String
+}
+
+
+/**
+ * The Location entity.
+ * @author Manohar
+ */
+entity Location{
+    locationName String required 
+    locationAddress String 
+}
+
+/**
+ * One to many relationship.
+ */
+relationship OneToMany {
+    Teacher to Student{Teacher(teacherName)}
+    BeltLevel to Student{BeltLevel(level)}
+    Performance to Student{Performance(rating)}
+    Location to Student{Location(locationName)}
+}
+
+paginate Teacher,Student with infinite-scroll

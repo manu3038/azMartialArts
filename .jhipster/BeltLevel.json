@@ -1,0 +1,32 @@
+{
+    "name": "BeltLevel",
+    "fields": [
+        {
+            "fieldName": "level",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "[A-Za-z ]+"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "student",
+            "otherEntityName": "student",
+            "otherEntityRelationshipName": "beltLevel"
+        }
+    ],
+    "changelogDate": "20190401102157",
+    "javadoc": "The BeltLevel entity.\n@author Manohar",
+    "entityTableName": "belt_level",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

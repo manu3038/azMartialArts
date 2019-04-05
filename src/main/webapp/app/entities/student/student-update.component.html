@@ -1,0 +1,205 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-student-heading">Create/Edit a Student</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="student.id">
+                    <label for="id" hidden>ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="student.id" readonly hidden />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_studentName">Student Name</label>
+                    <input type="text" class="form-control" name="studentName" id="field_studentName"
+                        [(ngModel)]="student.studentName" required pattern="[A-Za-z ]+"/>
+                    <div [hidden]="!(editForm.controls.studentName?.dirty && editForm.controls.studentName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.studentName?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.studentName?.errors?.pattern">
+                            This field should follow pattern for "Student Name".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateOfBirth">Date Of Birth</label>
+                    <input type="text" class="form-control" name="dateOfBirth" id="field_dateOfBirth"
+                        [(ngModel)]="student.dateOfBirth" required/>
+                    <div [hidden]="!(editForm.controls.dateOfBirth?.dirty && editForm.controls.dateOfBirth?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateOfBirth?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_parentName">Parent Name</label>
+                    <input type="text" class="form-control" name="parentName" id="field_parentName"
+                        [(ngModel)]="student.parentName" required pattern="[A-Za-z ]+"/>
+                    <div [hidden]="!(editForm.controls.parentName?.dirty && editForm.controls.parentName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.parentName?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.parentName?.errors?.pattern">
+                            This field should follow pattern for "Parent Name".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_parentmobileNumber">Parentmobile Number</label>
+                    <input type="text" class="form-control" name="parentmobileNumber" id="field_parentmobileNumber"
+                        [(ngModel)]="student.parentmobileNumber" required maxlength="12" pattern="[0-9]+"/>
+                    <div [hidden]="!(editForm.controls.parentmobileNumber?.dirty && editForm.controls.parentmobileNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.parentmobileNumber?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.parentmobileNumber?.errors?.maxlength">
+                        This field cannot be longer than 12 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.parentmobileNumber?.errors?.pattern">
+                            This field should follow pattern for "Parentmobile Number".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateOfJoining">Date Of Joining</label>
+                    <input type="text" class="form-control" name="dateOfJoining" id="field_dateOfJoining"
+                        [(ngModel)]="student.dateOfJoining" required/>
+                    <div [hidden]="!(editForm.controls.dateOfJoining?.dirty && editForm.controls.dateOfJoining?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateOfJoining?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_aadharCardNumber">Aadhar Card Number</label>
+                    <input type="text" class="form-control" name="aadharCardNumber" id="field_aadharCardNumber"
+                        [(ngModel)]="student.aadharCardNumber" required maxlength="12" pattern="[0-9]+"/>
+                    <div [hidden]="!(editForm.controls.aadharCardNumber?.dirty && editForm.controls.aadharCardNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.aadharCardNumber?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.aadharCardNumber?.errors?.maxlength">
+                        This field cannot be longer than 12 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.aadharCardNumber?.errors?.pattern">
+                            This field should follow pattern for "Aadhar Card Number".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_studentmobileNumber">Studentmobile Number</label>
+                    <input type="text" class="form-control" name="studentmobileNumber" id="field_studentmobileNumber"
+                        [(ngModel)]="student.studentmobileNumber" maxlength="12" pattern="[0-9]+"/>
+                    <div [hidden]="!(editForm.controls.studentmobileNumber?.dirty && editForm.controls.studentmobileNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.studentmobileNumber?.errors?.maxlength">
+                        This field cannot be longer than 12 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.studentmobileNumber?.errors?.pattern">
+                            This field should follow pattern for "Studentmobile Number".
+                        </small>
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label class="form-control-label" for="field_password">Password</label>
+                    <input type="text" class="form-control" name="password" id="field_password"
+                        [(ngModel)]="student.password" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_totalFees">Total Fees</label>
+                    <input type="number" class="form-control" name="totalFees" id="field_totalFees"
+                        [(ngModel)]="student.totalFees" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_paidFees">Paid Fees</label>
+                    <input type="number" class="form-control" name="paidFees" id="field_paidFees"
+                        [(ngModel)]="student.paidFees" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dueFees">Due Fees</label>
+                    <input type="number" class="form-control" name="dueFees" id="field_dueFees"
+                        [(ngModel)]="student.dueFees" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_image">Image</label>
+                    <div>
+                        <img [src]="'data:' + student.imageContentType + ';base64,' + student.image" style="max-height: 100px;" *ngIf="student.image" alt="student image"/>
+                        <div *ngIf="student.image" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{student.imageContentType}}, {{byteSize(student.image)}}</span>
+                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_image" (change)="setFileData($event, student, 'image', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="image" id="field_image"
+                        [(ngModel)]="student.image" />
+                    <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                        [(ngModel)]="student.imageContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_studentemail">Studentemail</label>
+                    <input type="text" class="form-control" name="studentemail" id="field_studentemail"
+                        [(ngModel)]="student.studentemail" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_parentemail">Parentemail</label>
+                    <input type="text" class="form-control" name="parentemail" id="field_parentemail"
+                        [(ngModel)]="student.parentemail" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_teacher">Teacher</label>
+                    <select class="form-control" id="field_teacher" name="teacher" [(ngModel)]="student.teacher" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="teacherOption.id === student.teacher?.id ? student.teacher : teacherOption" *ngFor="let teacherOption of teachers; trackBy: trackTeacherById">{{teacherOption.teacherName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_beltLevel">Belt Level</label>
+                    <select class="form-control" id="field_beltLevel" name="beltLevel" [(ngModel)]="student.beltLevel" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="beltLevelOption.id === student.beltLevel?.id ? student.beltLevel : beltLevelOption" *ngFor="let beltLevelOption of beltlevels; trackBy: trackBeltLevelById">{{beltLevelOption.level}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_performance">Performance</label>
+                    <select class="form-control" id="field_performance" name="performance" [(ngModel)]="student.performance" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="performanceOption.id === student.performance?.id ? student.performance : performanceOption" *ngFor="let performanceOption of performances; trackBy: trackPerformanceById">{{performanceOption.rating}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_location">Location</label>
+                    <select class="form-control" id="field_location" name="location" [(ngModel)]="student.location" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="locationOption.id === student.location?.id ? student.location : locationOption" *ngFor="let locationOption of locations; trackBy: trackLocationById">{{locationOption.locationName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

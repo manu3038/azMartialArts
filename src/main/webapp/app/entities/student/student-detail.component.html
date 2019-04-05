@@ -1,0 +1,108 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="student">
+            <h2><span>Student</span> {{student.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Student Name</span></dt>
+                <dd>
+                    <span>{{student.studentName}}</span>
+                </dd>
+                <dt><span>Date Of Birth</span></dt>
+                <dd>
+                    <span>{{student.dateOfBirth}}</span>
+                </dd>
+                <dt><span>Studentmobile Number</span></dt>
+                <dd>
+                    <span>{{student.studentmobileNumber}}</span>
+                </dd>
+                <dt><span>Date Of Joining</span></dt>
+                <dd>
+                    <span>{{student.dateOfJoining}}</span>
+                </dd>
+                <dt><span>Aadhar Card Number</span></dt>
+                <dd>
+                    <span>{{student.aadharCardNumber}}</span>
+                </dd>
+                <dt><span>Parent Name</span></dt>
+                <dd>
+                    <span>{{student.parentName}}</span>
+                </dd>
+                <dt><span>Parentmobile Number</span></dt>
+                <dd>
+                    <span>{{student.parentmobileNumber}}</span>
+                </dd>
+                <dt><span>Password</span></dt>
+                <dd>
+                    <span>{{student.password}}</span>
+                </dd>
+                <dt><span>Total Fees</span></dt>
+                <dd>
+                    <span>{{student.totalFees}}</span>
+                </dd>
+                <dt><span>Paid Fees</span></dt>
+                <dd>
+                    <span>{{student.paidFees}}</span>
+                </dd>
+                <dt><span>Due Fees</span></dt>
+                <dd>
+                    <span>{{student.dueFees}}</span>
+                </dd>
+                <dt><span>Image</span></dt>
+                <dd>
+                    <div *ngIf="student.image">
+                        <a (click)="openFile(student.imageContentType, student.image)">
+                            <img [src]="'data:' + student.imageContentType + ';base64,' + student.image" style="max-width: 100%;" alt="student image"/>
+                        </a>
+                        {{student.imageContentType}}, {{byteSize(student.image)}}
+                    </div>
+                </dd>
+                <dt><span>Studentemail</span></dt>
+                <dd>
+                    <span>{{student.studentemail}}</span>
+                </dd>
+                <dt><span>Parentemail</span></dt>
+                <dd>
+                    <span>{{student.parentemail}}</span>
+                </dd>
+                <dt><span>Teacher</span></dt>
+                <dd>
+                    <div *ngIf="student.teacher">
+                        <a [routerLink]="['/teacher', student.teacher?.id, 'view']">{{student.teacher?.teacherName}}</a>
+                    </div>
+                </dd>
+                <dt><span>Belt Level</span></dt>
+                <dd>
+                    <div *ngIf="student.beltLevel">
+                        <a [routerLink]="['/belt-level', student.beltLevel?.id, 'view']">{{student.beltLevel?.level}}</a>
+                    </div>
+                </dd>
+                <dt><span>Performance</span></dt>
+                <dd>
+                    <div *ngIf="student.performance">
+                        <a [routerLink]="['/performance', student.performance?.id, 'view']">{{student.performance?.rating}}</a>
+                    </div>
+                </dd>
+                <dt><span>Location</span></dt>
+                <dd>
+                    <div *ngIf="student.location">
+                        <a [routerLink]="['/location', student.location?.id, 'view']">{{student.location?.locationName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/student', student.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

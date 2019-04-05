@@ -1,0 +1,134 @@
+{
+    "name": "Student",
+    "fields": [
+        {
+            "fieldName": "studentName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "[A-Za-z ]+"
+        },
+        {
+            "fieldName": "dateOfBirth",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "studentmobileNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMaxlength": 12,
+            "fieldValidateRulesPattern": "[0-9]+"
+        },
+        {
+            "fieldName": "dateOfJoining",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "aadharCardNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMaxlength": 12,
+            "fieldValidateRulesPattern": "[0-9]+"
+        },
+        {
+            "fieldName": "parentName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "[A-Za-z ]+"
+        },
+        {
+            "fieldName": "parentmobileNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMaxlength": 12,
+            "fieldValidateRulesPattern": "[0-9]+"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "totalFees",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "paidFees",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dueFees",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "studentemail",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "parentemail",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "teacher",
+            "otherEntityName": "teacher",
+            "otherEntityField": "teacherName"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "beltLevel",
+            "otherEntityName": "beltLevel",
+            "otherEntityField": "level"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "performance",
+            "otherEntityName": "performance",
+            "otherEntityField": "rating"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "location",
+            "otherEntityName": "location",
+            "otherEntityField": "locationName"
+        }
+    ],
+    "changelogDate": "20190401102155",
+    "javadoc": "The Student entity.\n@author Manohar",
+    "entityTableName": "student",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

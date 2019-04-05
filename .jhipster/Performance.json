@@ -1,0 +1,34 @@
+{
+    "name": "Performance",
+    "fields": [
+        {
+            "fieldName": "rating",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern",
+                "maxlength"
+            ],
+            "fieldValidateRulesPattern": "[0-9]+",
+            "fieldValidateRulesMaxlength": 2
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "student",
+            "otherEntityName": "student",
+            "otherEntityRelationshipName": "performance"
+        }
+    ],
+    "changelogDate": "20190401102156",
+    "javadoc": "The Performance entity.\n@author Manohar",
+    "entityTableName": "performance",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
