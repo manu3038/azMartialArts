@@ -34,6 +34,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     locations: ILocation[];
     beltlevels: IBeltLevel[];
     searchFilterForm: FormGroup;
+    isEmpty: boolean;
 
     constructor(
         private studentService: StudentService,
@@ -132,15 +133,37 @@ export class StudentComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    // function for searching the students
     onSearchSubmit(searchObject: object) {
-        console.log(this.searchFilterForm.getRawValue());
         const copy = this.searchFilterForm.getRawValue();
+        if(copy.locationSearch == null && copy.beltSearch == null){
+            this.isEmpty = true;
+        }else{
+            this.isEmpty = false;
+        }
+        if(!this.isEmpty){
         this.studentService
             .searchStudents(copy)
             .subscribe(
-                (res: HttpResponse<IStudent[]>) => this.paginateStudents(res.body, res.headers),
+                (res: HttpResponse<IStudent[]>) =>{
+                    this.students=[];
+                    for (let i = 0; i < res.body.length; i++) {
+                    this.students.push(res.body[i]);
+                }} ,
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        }
+    }
+
+    // function for reseting the search feilds
+    resetSearchFilter(){
+        this.students=[];
+        this.page=null;
+        this.itemsPerPage = null;
+        this.searchFilterForm.controls['locationSearch'].setValue(null);
+        this.searchFilterForm.controls['beltSearch'].setValue(null);
+        this.isEmpty = false;
+        this.loadAll();
     }
 
     private paginateStudents(data: IStudent[], headers: HttpHeaders) {

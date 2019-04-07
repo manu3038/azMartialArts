@@ -6,6 +6,8 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { ITeacher } from 'app/shared/model/teacher.model';
 import { TeacherService } from './teacher.service';
+import { StudentService } from 'app/entities/student/student.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'jhi-teacher-delete-dialog',
@@ -13,21 +15,30 @@ import { TeacherService } from './teacher.service';
 })
 export class TeacherDeleteDialogComponent {
     teacher: ITeacher;
+    canDelete: boolean;
 
-    constructor(private teacherService: TeacherService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
+    constructor(private teacherService: TeacherService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager,private studentService: StudentService,) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.teacherService.delete(id).subscribe(response => {
-            this.eventManager.broadcast({
-                name: 'teacherListModification',
-                content: 'Deleted an teacher'
-            });
-            this.activeModal.dismiss(true);
-        });
+        this.studentService.teacherDelete(id).subscribe(
+            (res:HttpResponse<any>) =>{ 
+                if(res.body.length == 0){
+                    this.teacherService.delete(id).subscribe(response => {
+                        this.eventManager.broadcast({
+                            name: 'teacherListModification',
+                            content: 'Deleted an teacher'
+                        });
+                        this.activeModal.dismiss(true);
+                    });
+                }else{
+                   this.canDelete= true;
+                }
+            }
+        );
     }
 }
 
@@ -38,7 +49,7 @@ export class TeacherDeleteDialogComponent {
 export class TeacherDeletePopupComponent implements OnInit, OnDestroy {
     private ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal,private studentService: StudentService,) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ teacher }) => {

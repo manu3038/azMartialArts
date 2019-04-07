@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.myapp.azmartialarts.domain.BeltLevel;
 import com.myapp.azmartialarts.domain.Location;
 import com.myapp.azmartialarts.domain.Student;
+import com.myapp.azmartialarts.domain.Teacher;
 import com.myapp.azmartialarts.repository.StudentRepository;
 import com.myapp.azmartialarts.web.rest.errors.BadRequestAlertException;
 import com.myapp.azmartialarts.web.rest.util.HeaderUtil;
@@ -130,27 +131,33 @@ public class StudentResource {
     
     @PostMapping("/searchStudents")
     @Timed
-    public ResponseEntity<Student> searchStudents(@RequestBody LinkedHashMap<String,Long> params){
-    	params.forEach((key,value)->{
-    		log.debug("in the searchStudents Key: "+key+" & Value: "+value);
-    	});
-    	log.debug("out of foreach "+ params.get("locationSearch"));
-    	log.debug("out of foreach "+ params.get("beltSearch"));
+    public ResponseEntity<List<Student>> searchStudents(@RequestBody LinkedHashMap<String,Long> params){
     	if(params.get("beltSearch") == null && params.get("locationSearch")!= null) {
-    		Student locationResult = studentRepository.getByLocation(params.get("locationSearch"));
-    		log.debug("returned result for location"+locationResult.toString());
+    		List<Student> locationResult = studentRepository.getByLocation(params.get("locationSearch"));
+    		log.debug("returned result for location "+locationResult.toString());
     		return ResponseUtil.wrapOrNotFound(Optional.ofNullable(locationResult));
     	}
     	else if(params.get("beltSearch") != null && params.get("locationSearch") == null) {
-    	Student beltResult = studentRepository.getbyBelt(params.get("beltSearch"));
-    	log.debug("returned result for belt"+beltResult.toString());
+    	List<Student> beltResult = studentRepository.getbyBelt(params.get("beltSearch"));
+    	log.debug("returned result for belt "+beltResult.toString());
     	return ResponseUtil.wrapOrNotFound(Optional.ofNullable(beltResult));
     	}
     	else if(params.get("locationSearch") != null && params.get("beltSearch")!= null) {
-    		Student locationAndBeltResult = studentRepository.getbyLocationAndBelt(params.get("locationSearch"), params.get("beltSearch"));
-    		log.debug("returned result for belt"+locationAndBeltResult.toString());
+    		List<Student> locationAndBeltResult = studentRepository.getbyLocationAndBelt(params.get("locationSearch"), params.get("beltSearch"));
+    		log.debug("returned result for belt & location "+locationAndBeltResult.toString());
     		return ResponseUtil.wrapOrNotFound(Optional.ofNullable(locationAndBeltResult));
     	}
 		return ResponseEntity.noContent().build();    	
     }
+    
+    
+    @GetMapping("/teacherDelete/{id}")
+    @Timed
+    public ResponseEntity<?> searchStudents(@PathVariable Teacher id){
+		log.debug("In the get api call id = "+id);
+		List<Student> teacherDelete = studentRepository.findByTeacher(id);
+		log.debug("result for teacher serach" + teacherDelete);
+    	return ResponseUtil.wrapOrNotFound(Optional.ofNullable(teacherDelete));
+    }
 }
+    

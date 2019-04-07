@@ -11,13 +11,18 @@
     <jhi-alert></jhi-alert>
     <br/>
     <h3>Search</h3>
-    <form [formGroup]="searchFilterForm" (ngSubmit)="onSearchSubmit($event)" class="row">
+    <form [formGroup]="searchFilterForm" class="row">
         <div class="col-md-3 form-group">
          <label for="locationSearch" class="form-control-label">Location</label>
          <select name="field_locationSearch" formControlName="locationSearch" id="locationSearch" class="form-control form-control-sm">
             <option [ngValue]="null">--Select--</option>
             <option [ngValue]="locationOption.id" *ngFor="let locationOption of locations">{{locationOption.locationName}}</option>
          </select>
+         <div [hidden]="!isEmpty">
+            <small class="form-text text-danger">
+            Atleast one feild is required to search
+            </small>
+         </div>
         </div> 
          <div class="col-md-3 form-group">
          <label for="beltSearch" class="form-control-label">Belt</label>
@@ -27,7 +32,7 @@
          </select>
         </div>
         <div class="float-right form-group">
-            <button id="btn_search" class="btn btn-primary" type="submit">
+            <button id="btn_search" class="btn btn-primary" type="submit" (click)="onSearchSubmit($event)">
                     <fa-icon [icon]="'search'"></fa-icon> <span>Search</span>
             </button>
             <button id="btn_reset" class="btn btn-secondary" (click)="resetSearchFilter()">

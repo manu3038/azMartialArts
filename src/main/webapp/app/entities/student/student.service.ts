@@ -13,6 +13,7 @@ type EntityArrayResponseType = HttpResponse<IStudent[]>;
 export class StudentService {
     private resourceUrl = SERVER_API_URL + 'api/students';
     private searchResourceUrl = SERVER_API_URL + 'api/searchStudents';
+    private teacherDeleteResourceUrl = SERVER_API_URL + 'api/teacherDelete';
 
     constructor(private http: HttpClient) {}
 
@@ -37,6 +38,10 @@ export class StudentService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
     searchStudents(params) {
-        return this.http.post(this.searchResourceUrl, params, { observe: 'response' });
+        return this.http.post<IStudent[]>(this.searchResourceUrl, params, { observe: 'response' });
+    }
+    
+    teacherDelete(id : number): Observable<EntityResponseType> {
+        return this.http.get<any>(`${this.teacherDeleteResourceUrl}/${id}`,{ observe: 'response' });
     }
 }
